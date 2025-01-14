@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static specs.BaseSpecs.requestSpec;
 
 public class GameService {
-    @Step("Добавить игру пользователю")
+    @Step("Отправить запрос на добавление игры пользователю")
     public AssertableResponse addGameToUser(String token, GamesItem game) {
         return new AssertableResponse(
                 given(requestSpec)
@@ -21,7 +21,7 @@ public class GameService {
         );
     }
 
-    @Step("Получить список со всеми играми пользователя")
+    @Step("Отправить запрос для получения списка со всеми играми пользователя")
     public AssertableResponse getAllUserGames(String token) {
         return new AssertableResponse(
                 given(requestSpec)

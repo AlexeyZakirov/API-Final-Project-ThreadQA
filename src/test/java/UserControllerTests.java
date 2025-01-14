@@ -74,8 +74,10 @@ public class UserControllerTests extends TestBase {
                 .should(hasStatus("success"))
                 .should(hasMessage("User created"));
 
-        userService.getJwtToken(login, wrongPassword)
-                .should(hasStatusCode(401));
+        step("Отправить запрос на получение JWT токена с неверным паролем в теле запроса", x -> {
+            userService.getJwtToken(login, wrongPassword)
+                    .should(hasStatusCode(401));
+        });
     }
 
     @Severity(SeverityLevel.CRITICAL)

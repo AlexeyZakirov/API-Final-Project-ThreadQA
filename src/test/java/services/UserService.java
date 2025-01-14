@@ -13,7 +13,7 @@ import static specs.BaseSpecs.requestSpec;
 
 public class UserService {
 
-    @Step("Зарегистрировать пользователя")
+    @Step("Отправить запрос на регистрацию пользователя")
     public AssertableResponse registerUser(String login, String password) {
         UserModel userModel = UserModel.builder().login(login).pass(password).build();
         return new AssertableResponse(
@@ -24,7 +24,7 @@ public class UserService {
         );
     }
 
-    @Step("Получить JWT токен после авторизации")
+    @Step("Отправить запрос на получение JWT токена после авторизации")
     public AssertableResponse getJwtToken(String login, String password) {
         UserAuth userAuth = UserAuth.builder()
                 .username(login)
@@ -38,7 +38,7 @@ public class UserService {
         );
     }
 
-    @Step("Получить данные о пользователе")
+    @Step("Отправить запрос о получении данных для пользователя")
     public AssertableResponse getUser(String token) {
         return new AssertableResponse(
                 given(requestSpec)
@@ -47,7 +47,7 @@ public class UserService {
                         .then());
     }
 
-    @Step("Поменять пароль пользователя на новый строковый")
+    @Step("Поменять пароль пользователя на новый строковый, отправив запрос на смену пароля")
     public AssertableResponse changeUserPassword(String token, String newPassword) {
         Map<String, String> newPasswordMap = new HashMap<>();
         newPasswordMap.put("password", newPassword);
@@ -61,7 +61,7 @@ public class UserService {
         );
     }
 
-    @Step("Поменять пароль пользователя на новый числовой")
+    @Step("Поменять пароль пользователя на новый числовой, отправив запрос на смену пароля")
     public AssertableResponse changeUserPassword(String token, Integer newPassword) {
         Map<String, Integer> newPasswordMap = new HashMap<>();
         newPasswordMap.put("password", newPassword);
@@ -75,7 +75,7 @@ public class UserService {
         );
     }
 
-    @Step("Удалить пользователя")
+    @Step("Отправить запрос на удаление пользователя")
     public AssertableResponse deleteUser(String token) {
         return new AssertableResponse(
                 given(requestSpec)
@@ -85,7 +85,7 @@ public class UserService {
         );
     }
 
-    @Step("Получить список всех пользователей")
+    @Step("Отправить запрос для получения списка всех пользователей")
     public AssertableResponse getAllUsers() {
         return new AssertableResponse(
                 given(requestSpec)
