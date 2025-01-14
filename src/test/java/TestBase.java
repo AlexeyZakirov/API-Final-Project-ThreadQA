@@ -1,19 +1,20 @@
+import config.ApiConfig;
+import config.ConfigReader;
+import config.ProjectConfiguration;
 import helpers.RandomUtils;
-import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 
 public class TestBase {
+    private static final ApiConfig apiConfig = ConfigReader.INSTANCE.read();
     protected final RandomUtils random = new RandomUtils();
     protected String login;
     protected String password;
 
     @BeforeAll
     public static void setUp() {
-        RestAssured.baseURI = "http://85.192.34.140:8080";
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+        ProjectConfiguration projectConfiguration = new ProjectConfiguration(apiConfig);
+        projectConfiguration.apiConfig();
     }
 
     @BeforeEach

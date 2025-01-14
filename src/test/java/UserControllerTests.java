@@ -17,7 +17,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @Owner("Alexey Zakirov")
 @DisplayName("Проверки пользовательского контроллера")
 public class UserControllerTests extends TestBase {
-
     private final UserService userService = new UserService();
 
     @Severity(SeverityLevel.CRITICAL)

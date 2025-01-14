@@ -19,7 +19,7 @@ public class UserService {
         return new AssertableResponse(
                 given(requestSpec)
                         .body(userModel)
-                        .post("/api/signup")
+                        .post("/signup")
                         .then()
         );
     }
@@ -33,7 +33,7 @@ public class UserService {
         return new AssertableResponse(
                 given(requestSpec)
                         .body(userAuth)
-                        .post("/api/login")
+                        .post("/login")
                         .then()
         );
     }
@@ -43,7 +43,7 @@ public class UserService {
         return new AssertableResponse(
                 given(requestSpec)
                         .auth().oauth2(token)
-                        .get("/api/user")
+                        .get("/user")
                         .then());
     }
 
@@ -51,11 +51,12 @@ public class UserService {
     public AssertableResponse changeUserPassword(String token, String newPassword) {
         Map<String, String> newPasswordMap = new HashMap<>();
         newPasswordMap.put("password", newPassword);
+
         return new AssertableResponse(
                 given(requestSpec)
                         .auth().oauth2(token)
                         .body(newPasswordMap)
-                        .put("/api/user")
+                        .put("/user")
                         .then()
         );
     }
@@ -64,11 +65,12 @@ public class UserService {
     public AssertableResponse changeUserPassword(String token, Integer newPassword) {
         Map<String, Integer> newPasswordMap = new HashMap<>();
         newPasswordMap.put("password", newPassword);
+
         return new AssertableResponse(
                 given(requestSpec)
                         .auth().oauth2(token)
                         .body(newPasswordMap)
-                        .put("/api/user")
+                        .put("/user")
                         .then()
         );
     }
@@ -78,7 +80,7 @@ public class UserService {
         return new AssertableResponse(
                 given(requestSpec)
                         .auth().oauth2(token)
-                        .delete("/api/user")
+                        .delete("/user")
                         .then()
         );
     }
@@ -87,7 +89,7 @@ public class UserService {
     public AssertableResponse getAllUsers() {
         return new AssertableResponse(
                 given(requestSpec)
-                        .get("/api/users")
+                        .get("/users")
                         .then());
     }
 }

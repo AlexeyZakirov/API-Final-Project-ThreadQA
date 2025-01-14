@@ -16,7 +16,7 @@ public class GameService {
                         .contentType(ContentType.JSON)
                         .auth().oauth2(token)
                         .body(game)
-                        .post("/api/user/games")
+                        .post("/user/games")
                         .then()
         );
     }
@@ -26,7 +26,7 @@ public class GameService {
         return new AssertableResponse(
                 given(requestSpec)
                         .auth().oauth2(token)
-                        .get("/api/user/games")
+                        .get("/user/games")
                         .then()
         );
     }
