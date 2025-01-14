@@ -1,0 +1,68 @@
+plugins {
+    id 'java-library'
+    id 'io.qameta.allure' version '2.11.2'
+    id "io.freefair.lombok" version "8.10.2"
+}
+
+repositories {
+    mavenCentral();
+}
+
+def restAssuredVersion = "5.5.0",
+    allureVersion = "2.29.0"
+
+allure {
+    report {
+        version.set(allureVersion)
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set(allureVersion)
+            }
+        }
+    }
+}
+
+dependencies {
+    testImplementation(
+            "io.rest-assured:rest-assured:$restAssuredVersion",
+            "io.rest-assured:json-schema-validator:$restAssuredVersion",
+            "io.qameta.allure:allure-rest-assured:$allureVersion",
+            "org.junit.jupiter:junit-jupiter:5.10.0",
+            'org.slf4j:slf4j-simple:2.0.7',
+            'com.github.javafaker:javafaker:1.0.2',
+            'org.assertj:assertj-core:3.26.3',
+            'org.aeonbits.owner:owner:1.0.12',
+            'org.projectlombok:lombok:1.18.36'
+    )
+}
+
+tasks.withType(Test) {
+    systemProperties(System.getProperties())
+    useJUnitPlatform()
+
+    testLogging {
+        lifecycle{
+            events "started", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task user_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("user_test")
+    }
+}
+
+task game_test(type: Test) {
+    useJUnitPlatform {
+        includeTags("game_test")
+    }
+}
